@@ -5,6 +5,7 @@ import { InputScreen } from "@/components/InputScreen";
 import { ThankYouScreen } from "@/components/ThankYouScreen";
 import { BackgroundTheme } from "@/components/BackgroundTheme";
 import { contentSchema, OnboardingAnswers } from "@/data/contentSchema";
+import heroImage from "@/assets/mini-business-hero.jpg";
 
 const STORAGE_KEY = "coralOnboardingAnswers";
 const SUBMISSION_KEY = "coralOnboardingSubmission";
@@ -85,6 +86,10 @@ const Index = () => {
     setIsSubmitted(true);
   };
 
+  const handleBack = () => {
+    setCurrentStep(prev => Math.max(1, prev - 1));
+  };
+
   if (isSubmitted) {
     return (
       <div className="min-h-screen bg-background relative">
@@ -111,13 +116,46 @@ const Index = () => {
 
       <main className="pb-8">
         {currentStep === 1 && (
-          <QuestionScreen
-            step={1}
-            title={contentSchema.q1.title}
-            subtext={contentSchema.q1.subtext}
-            options={contentSchema.q1.options}
-            onSelect={(option, index) => handleQuestionSelect("q1", option)}
-          />
+          <div className="flex flex-col items-center justify-center min-h-[70vh] px-4 animate-fade-in">
+            <div className="w-full max-w-[360px] md:max-w-[520px] lg:max-w-[640px] space-y-8 md:space-y-10">
+              <div className="w-full rounded-3xl overflow-hidden shadow-lg mb-6">
+                <img 
+                  src={heroImage} 
+                  alt="Mini Business Series" 
+                  className="w-full h-auto object-cover"
+                />
+              </div>
+              <div className="text-center space-y-4">
+                <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-foreground leading-tight">
+                  {contentSchema.q1.title}
+                </h1>
+                {contentSchema.q1.subtext && (
+                  <p className="text-base md:text-lg text-deep-blue font-medium">
+                    {contentSchema.q1.subtext}
+                  </p>
+                )}
+              </div>
+              <div className="space-y-4">
+                {contentSchema.q1.options.map((option, index) => (
+                  <button
+                    key={index}
+                    onClick={() => handleQuestionSelect("q1", option)}
+                    className="w-full h-auto py-4 px-6 text-base md:text-lg font-medium rounded-full 
+                             bg-card text-foreground border border-border 
+                             shadow-sm hover:shadow-md hover:scale-[1.02] 
+                             active:scale-[0.98] transition-all duration-200
+                             focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    data-step={1}
+                    data-question="q1"
+                    data-option-index={index}
+                    data-option-text={option}
+                  >
+                    {option}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
         )}
 
         {currentStep === 2 && (
@@ -126,6 +164,7 @@ const Index = () => {
             title={contentSchema.q2.title}
             options={contentSchema.q2.options}
             onSelect={(option, index) => handleQuestionSelect("q2", option)}
+            onBack={handleBack}
           />
         )}
 
@@ -135,6 +174,7 @@ const Index = () => {
             title={contentSchema.q3.title}
             options={contentSchema.q3.options}
             onSelect={(option, index) => handleQuestionSelect("q3", option)}
+            onBack={handleBack}
           />
         )}
 
@@ -146,6 +186,8 @@ const Index = () => {
             type="text"
             buttonText={contentSchema.name.button}
             onSubmit={handleNameSubmit}
+            onBack={handleBack}
+            placeholder="Enter your name"
           />
         )}
 
@@ -158,6 +200,8 @@ const Index = () => {
             buttonText={contentSchema.email.button}
             onSubmit={handleEmailSubmit}
             validator={emailValidator}
+            onBack={handleBack}
+            placeholder="Enter your email"
           />
         )}
       </main>
