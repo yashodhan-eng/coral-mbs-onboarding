@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { ChevronLeft } from "lucide-react";
 
 interface InputScreenProps {
   step: number;
@@ -11,6 +12,7 @@ interface InputScreenProps {
   buttonText: string;
   onSubmit: (value: string) => void;
   validator?: (value: string) => string | null;
+  onBack?: () => void;
 }
 
 export const InputScreen = ({
@@ -20,7 +22,8 @@ export const InputScreen = ({
   type,
   buttonText,
   onSubmit,
-  validator
+  validator,
+  onBack
 }: InputScreenProps) => {
   const [value, setValue] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -57,9 +60,20 @@ export const InputScreen = ({
   };
 
   const isDisabled = !value.trim();
+  
+  const placeholderText = type === "email" ? "Enter your email" : "Enter your name";
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[70vh] px-4 animate-fade-in">
+    <div className="flex flex-col items-center justify-center min-h-[70vh] px-4 animate-fade-in relative">
+      {onBack && (
+        <button
+          onClick={onBack}
+          className="absolute top-4 left-4 p-2 rounded-full hover:bg-accent transition-colors"
+          aria-label="Go back"
+        >
+          <ChevronLeft className="w-6 h-6" style={{ color: '#F05A26' }} />
+        </button>
+      )}
       <div className="w-full max-w-[360px] md:max-w-[520px] lg:max-w-[640px] space-y-8 md:space-y-10">
         <div className="text-center">
           <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-foreground leading-tight">
@@ -78,9 +92,9 @@ export const InputScreen = ({
               value={value}
               onChange={handleChange}
               onBlur={() => setTouched(true)}
-              className="h-14 text-base md:text-lg rounded-full px-6 border-border
+              className="h-14 text-base md:text-lg rounded-full px-6 bg-white border border-gray-300
                        focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-              placeholder={label}
+              placeholder={placeholderText}
               data-step={step}
             />
             {error && touched && (

@@ -5,6 +5,7 @@ import { InputScreen } from "@/components/InputScreen";
 import { ThankYouScreen } from "@/components/ThankYouScreen";
 import { BackgroundTheme } from "@/components/BackgroundTheme";
 import { contentSchema, OnboardingAnswers } from "@/data/contentSchema";
+import heroImage from "@/assets/mini-business-hero.jpg";
 
 const STORAGE_KEY = "coralOnboardingAnswers";
 const SUBMISSION_KEY = "coralOnboardingSubmission";
@@ -65,6 +66,10 @@ const Index = () => {
     }, 200);
   };
 
+  const handleBack = () => {
+    setCurrentStep(prev => Math.max(1, prev - 1));
+  };
+
   const handleNameSubmit = (name: string) => {
     const newAnswers = { ...answers, name };
     setAnswers(newAnswers);
@@ -111,13 +116,22 @@ const Index = () => {
 
       <main className="pb-8">
         {currentStep === 1 && (
-          <QuestionScreen
-            step={1}
-            title={contentSchema.q1.title}
-            subtext={contentSchema.q1.subtext}
-            options={contentSchema.q1.options}
-            onSelect={(option, index) => handleQuestionSelect("q1", option)}
-          />
+          <div className="animate-fade-in">
+            <div className="w-full max-w-[1200px] mx-auto px-4 pt-6">
+              <img 
+                src={heroImage} 
+                alt="Mini Business Series" 
+                className="w-full h-auto rounded-2xl shadow-lg mb-8"
+              />
+            </div>
+            <QuestionScreen
+              step={1}
+              title={contentSchema.q1.title}
+              subtext={contentSchema.q1.subtext}
+              options={contentSchema.q1.options}
+              onSelect={(option, index) => handleQuestionSelect("q1", option)}
+            />
+          </div>
         )}
 
         {currentStep === 2 && (
@@ -126,6 +140,7 @@ const Index = () => {
             title={contentSchema.q2.title}
             options={contentSchema.q2.options}
             onSelect={(option, index) => handleQuestionSelect("q2", option)}
+            onBack={handleBack}
           />
         )}
 
@@ -135,6 +150,7 @@ const Index = () => {
             title={contentSchema.q3.title}
             options={contentSchema.q3.options}
             onSelect={(option, index) => handleQuestionSelect("q3", option)}
+            onBack={handleBack}
           />
         )}
 
@@ -146,6 +162,7 @@ const Index = () => {
             type="text"
             buttonText={contentSchema.name.button}
             onSubmit={handleNameSubmit}
+            onBack={handleBack}
           />
         )}
 
@@ -158,6 +175,7 @@ const Index = () => {
             buttonText={contentSchema.email.button}
             onSubmit={handleEmailSubmit}
             validator={emailValidator}
+            onBack={handleBack}
           />
         )}
       </main>

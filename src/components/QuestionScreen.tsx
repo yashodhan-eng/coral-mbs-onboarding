@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { ChevronLeft } from "lucide-react";
 
 interface QuestionScreenProps {
   step: number;
@@ -6,6 +7,7 @@ interface QuestionScreenProps {
   subtext?: string;
   options: string[];
   onSelect: (option: string, index: number) => void;
+  onBack?: () => void;
 }
 
 export const QuestionScreen = ({ 
@@ -13,17 +15,27 @@ export const QuestionScreen = ({
   title, 
   subtext, 
   options, 
-  onSelect 
+  onSelect,
+  onBack
 }: QuestionScreenProps) => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-[70vh] px-4 animate-fade-in">
+    <div className="flex flex-col items-center justify-center min-h-[70vh] px-4 animate-fade-in relative">
+      {onBack && (
+        <button
+          onClick={onBack}
+          className="absolute top-4 left-4 p-2 rounded-full hover:bg-accent transition-colors"
+          aria-label="Go back"
+        >
+          <ChevronLeft className="w-6 h-6" style={{ color: '#F05A26' }} />
+        </button>
+      )}
       <div className="w-full max-w-[360px] md:max-w-[520px] lg:max-w-[640px] space-y-8 md:space-y-10">
         <div className="text-center space-y-3">
           <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-foreground leading-tight">
             {title}
           </h1>
           {subtext && (
-            <p className="text-base md:text-lg text-muted-foreground">
+            <p className="text-base md:text-lg font-medium" style={{ color: '#2788A0' }}>
               {subtext}
             </p>
           )}
