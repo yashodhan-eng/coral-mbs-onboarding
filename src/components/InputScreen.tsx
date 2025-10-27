@@ -79,11 +79,11 @@ export const InputScreen = ({
         </div>
       )}
       
-      <div className="flex flex-col items-center justify-center px-4 relative">
+      <div className="flex flex-col items-center justify-center px-4">
         {onBack && (
           <button
             onClick={onBack}
-            className="absolute top-4 left-4 p-2 rounded-full hover:bg-accent transition-colors"
+            className="fixed top-[3.75rem] left-4 z-10 p-2 rounded-full hover:bg-accent transition-colors"
             aria-label="Go back"
           >
             <ChevronLeft className="w-6 h-6" style={{ color: '#F05A26' }} />
