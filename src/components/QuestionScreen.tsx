@@ -41,16 +41,17 @@ export const QuestionScreen = ({
           )}
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-5 md:space-y-6">
           {options.map((option, index) => (
             <Button
               key={index}
               onClick={() => onSelect(option, index)}
-              className="w-full h-auto py-4 px-6 text-base md:text-lg font-medium rounded-full 
-                       bg-card text-foreground border border-border 
-                       shadow-sm hover:shadow-md hover:scale-[1.02] 
+              className="w-full h-auto min-h-[60px] py-5 px-6 text-base md:text-lg font-medium rounded-2xl
+                       bg-card text-foreground border-2 border-border 
+                       shadow-sm hover:shadow-lg hover:scale-[1.02] hover:border-primary/50
                        active:scale-[0.98] transition-all duration-200
-                       focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                       focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
+                       leading-relaxed"
               data-step={step}
               data-question={`q${step}`}
               data-option-index={index}

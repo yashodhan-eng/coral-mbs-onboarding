@@ -6,6 +6,10 @@ import { ThankYouScreen } from "@/components/ThankYouScreen";
 import { BackgroundTheme } from "@/components/BackgroundTheme";
 import { contentSchema, OnboardingAnswers } from "@/data/contentSchema";
 import heroImage from "@/assets/mini-business-hero.jpg";
+import screen2Hero from "@/assets/screen2-hero.jpg";
+import screen3Hero from "@/assets/screen3-hero.jpg";
+import screen4Hero from "@/assets/screen4-hero.jpg";
+import screen5Hero from "@/assets/screen5-hero.jpg";
 
 const STORAGE_KEY = "coralOnboardingAnswers";
 const SUBMISSION_KEY = "coralOnboardingSubmission";
@@ -132,23 +136,47 @@ const Index = () => {
         )}
 
         {currentStep === 2 && (
-          <QuestionScreen
-            step={2}
-            title={contentSchema.q2.title}
-            options={contentSchema.q2.options}
-            onSelect={(option, index) => handleQuestionSelect("q2", option)}
-            onBack={handleBack}
-          />
+          <div className="animate-fade-in">
+            <div className="w-full max-w-[1000px] mx-auto px-4 pt-8">
+              <div className="mb-10">
+                <img 
+                  src={screen2Hero} 
+                  alt="Kids learning about business" 
+                  className="w-full h-auto rounded-2xl shadow-lg"
+                />
+              </div>
+            </div>
+
+            <QuestionScreen
+              step={2}
+              title={contentSchema.q2.title}
+              options={contentSchema.q2.options}
+              onSelect={(option, index) => handleQuestionSelect("q2", option)}
+              onBack={handleBack}
+            />
+          </div>
         )}
 
         {currentStep === 3 && (
-          <QuestionScreen
-            step={3}
-            title={contentSchema.q3.title}
-            options={contentSchema.q3.options}
-            onSelect={(option, index) => handleQuestionSelect("q3", option)}
-            onBack={handleBack}
-          />
+          <div className="animate-fade-in">
+            <div className="w-full max-w-[1000px] mx-auto px-4 pt-8">
+              <div className="mb-10">
+                <img 
+                  src={screen3Hero} 
+                  alt="Child presenting ideas" 
+                  className="w-full h-auto rounded-2xl shadow-lg"
+                />
+              </div>
+            </div>
+
+            <QuestionScreen
+              step={3}
+              title={contentSchema.q3.title}
+              options={contentSchema.q3.options}
+              onSelect={(option, index) => handleQuestionSelect("q3", option)}
+              onBack={handleBack}
+            />
+          </div>
         )}
 
         {currentStep === 4 && (
@@ -160,6 +188,7 @@ const Index = () => {
             buttonText={contentSchema.name.button}
             onSubmit={handleNameSubmit}
             onBack={handleBack}
+            heroImage={screen4Hero}
           />
         )}
 
@@ -173,6 +202,7 @@ const Index = () => {
             onSubmit={handleEmailSubmit}
             validator={emailValidator}
             onBack={handleBack}
+            heroImage={screen5Hero}
           />
         )}
       </main>

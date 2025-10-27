@@ -10,7 +10,7 @@ interface TopNavProps {
 export const TopNav = ({ currentStep, totalSteps }: TopNavProps) => {
   return (
     <nav className="w-full">
-      <div className="flex items-center justify-between px-4 py-3 md:px-6">
+      <div className="flex items-center justify-center px-4 py-3 md:px-6">
         <img 
           src={coralLogo} 
           alt="Coral Academy" 
