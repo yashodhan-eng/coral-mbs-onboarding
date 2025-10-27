@@ -6,7 +6,6 @@ import { ThankYouScreen } from "@/components/ThankYouScreen";
 import { BackgroundTheme } from "@/components/BackgroundTheme";
 import { contentSchema, OnboardingAnswers } from "@/data/contentSchema";
 import heroImage from "@/assets/mini-business-hero.jpg";
-import coralLogo from "@/assets/coral-academy-logo.png";
 
 const STORAGE_KEY = "coralOnboardingAnswers";
 const SUBMISSION_KEY = "coralOnboardingSubmission";
@@ -119,31 +118,33 @@ const Index = () => {
       <TopNav 
         currentStep={currentStep} 
         totalSteps={5}
-        logoSrc={contentSchema.logoSrc}
       />
 
       <main className="pb-8">
         {currentStep === 1 && (
           <div className="animate-fade-in">
-            <div className="w-full max-w-[1200px] mx-auto px-4 pt-6">
-              <div className="relative w-[70%] mx-auto mb-8">
+            <div className="w-full max-w-[1000px] mx-auto px-4 pt-8">
+              {/* Title Section */}
+              <div className="text-center mb-6">
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-3">
+                  Mini Business Series
+                </h1>
+                <p className="text-lg md:text-xl text-[#2788A0] font-medium">
+                  The Entrepreneurship Class for Kids Every Parent Recommends
+                </p>
+              </div>
+
+              {/* Hero Image */}
+              <div className="mb-10">
                 <img 
                   src={heroImage} 
-                  alt="Mini Business Series" 
+                  alt="Mini Business Series - Brand Logos Collage" 
                   className="w-full h-auto rounded-2xl shadow-lg"
                 />
-                <div className="absolute inset-0 flex flex-col items-center justify-center">
-                  <img 
-                    src={coralLogo} 
-                    alt="Coral Academy" 
-                    className="w-32 md:w-40 mb-4 drop-shadow-2xl"
-                  />
-                  <h2 className="text-3xl md:text-5xl font-bold text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)] text-center px-4">
-                    Mini Business Series
-                  </h2>
-                </div>
               </div>
             </div>
+
+            {/* Question Section */}
             <QuestionScreen
               step={1}
               title={contentSchema.q1.title}

@@ -1,6 +1,6 @@
 export const contentSchema = {
   redirectUrl: "https://www.coralacademy.com/class/minibusinessseries-c61a217d-9826-45e5-81a7-ff7cdca717b3",
-  logoSrc: "/coral-logo.png",
+  logoSrc: "/src/assets/coral-academy-logo.png",
   q1: {
     title: "What are you looking to explore?",
     subtext: "Pick one to get started",

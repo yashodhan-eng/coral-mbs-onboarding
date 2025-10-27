@@ -1,19 +1,20 @@
 import { ProgressBar } from "./ProgressBar";
+import coralLogo from "@/assets/coral-academy-logo.png";
 
 interface TopNavProps {
   currentStep: number;
   totalSteps: number;
-  logoSrc: string;
+  logoSrc?: string;
 }
 
-export const TopNav = ({ currentStep, totalSteps, logoSrc }: TopNavProps) => {
+export const TopNav = ({ currentStep, totalSteps }: TopNavProps) => {
   return (
     <nav className="w-full">
       <div className="flex items-center justify-between px-4 py-3 md:px-6">
         <img 
-          src={logoSrc} 
+          src={coralLogo} 
           alt="Coral Academy" 
-          className="h-6 md:h-7"
+          className="h-8 md:h-10"
         />
       </div>
       <ProgressBar currentStep={currentStep} totalSteps={totalSteps} />
