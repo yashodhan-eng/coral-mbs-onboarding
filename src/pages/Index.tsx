@@ -25,23 +25,30 @@ const Index = () => {
 
   // Load saved answers from localStorage
   useEffect(() => {
+    // Clear previous submission to allow fresh preview
+    localStorage.removeItem(SUBMISSION_KEY);
+    
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
       try {
         const parsedAnswers = JSON.parse(saved);
-        setAnswers(parsedAnswers);
-        
-        // Determine which step to resume from
-        if (parsedAnswers.email) {
-          setIsSubmitted(true);
-        } else if (parsedAnswers.name) {
-          setCurrentStep(5);
-        } else if (parsedAnswers.q3) {
-          setCurrentStep(4);
-        } else if (parsedAnswers.q2) {
-          setCurrentStep(3);
-        } else if (parsedAnswers.q1) {
-          setCurrentStep(2);
+        // Only resume if not fully completed
+        if (!parsedAnswers.email) {
+          setAnswers(parsedAnswers);
+          
+          // Determine which step to resume from
+          if (parsedAnswers.name) {
+            setCurrentStep(5);
+          } else if (parsedAnswers.q3) {
+            setCurrentStep(4);
+          } else if (parsedAnswers.q2) {
+            setCurrentStep(3);
+          } else if (parsedAnswers.q1) {
+            setCurrentStep(2);
+          }
+        } else {
+          // Clear completed flow to start fresh
+          localStorage.removeItem(STORAGE_KEY);
         }
       } catch (e) {
         console.error("Failed to parse saved answers", e);
