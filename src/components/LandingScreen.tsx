@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import coralLogo from "@/assets/coral-academy-logo.png";
 import heroImage from "@/assets/mini-business-hero.jpg";
 
@@ -10,7 +9,7 @@ export const LandingScreen = ({ onContinue }: LandingScreenProps) => {
   return (
     <div className="min-h-screen bg-background relative">
       {/* Logo at top center */}
-      <div className="flex items-center justify-center px-4 py-6">
+      <div className="flex items-center justify-center px-6 md:px-10 py-8">
         <img 
           src={coralLogo} 
           alt="Coral Academy" 
@@ -18,32 +17,34 @@ export const LandingScreen = ({ onContinue }: LandingScreenProps) => {
         />
       </div>
 
-      <main className="pb-8">
+      <main className="pb-12">
         <div className="animate-fade-in">
-          <div className="w-full max-w-[1000px] mx-auto px-4 pt-4">
+          <div className="w-full max-w-[900px] mx-auto px-6 md:px-10 lg:px-20">
             {/* Title Section */}
-            <div className="text-center mb-6">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4">
+            <div className="text-center mb-8 md:mb-10">
+              <h1 className="font-poppins font-semibold text-[28px] md:text-[32px] lg:text-[36px] text-foreground mb-3 tracking-tight leading-tight">
                 Mini Business Series
               </h1>
-              <p className="text-xl md:text-2xl text-[#2788A0] font-medium">
+              <p className="font-poppins text-[16px] md:text-[18px] text-secondary font-normal tracking-wide">
                 Fun, hands-on business classes for curious kids (Ages 8–13)
               </p>
             </div>
 
             {/* Hero Image */}
-            <div className="mb-8">
-              <img 
-                src={heroImage} 
-                alt="Mini Business Series - Brand Logos Collage" 
-                className="w-full h-auto rounded-2xl shadow-lg"
-              />
+            <div className="mb-10 md:mb-12">
+              <div className="max-w-[90%] md:max-w-[85%] mx-auto">
+                <img 
+                  src={heroImage} 
+                  alt="Mini Business Series - Brand Logos Collage" 
+                  className="w-full h-auto rounded-2xl shadow-[0_8px_24px_rgba(0,0,0,0.08)]"
+                />
+              </div>
             </div>
 
             {/* Highlighted Quote Section */}
-            <div className="text-center mb-8">
-              <div className="inline-block bg-card border-2 border-primary/20 rounded-2xl px-8 py-6 shadow-lg">
-                <p className="text-xl md:text-2xl font-semibold text-foreground">
+            <div className="text-center mb-10 md:mb-12">
+              <div className="inline-block bg-card border-2 border-primary/15 rounded-2xl px-8 md:px-10 py-5 md:py-6 shadow-[0_4px_16px_rgba(240,90,38,0.08)]">
+                <p className="font-poppins text-[15px] md:text-[17px] font-medium text-foreground tracking-wide">
                   Classes every Thursday at 4:00 PM PST.
                 </p>
               </div>
@@ -51,15 +52,19 @@ export const LandingScreen = ({ onContinue }: LandingScreenProps) => {
 
             {/* CTA Button */}
             <div className="flex justify-center">
-              <Button
+              <button
                 onClick={onContinue}
-                className="h-auto py-5 px-12 text-lg md:text-xl font-semibold rounded-2xl
-                         shadow-lg hover:shadow-xl hover:scale-[1.02]
-                         active:scale-[0.98] transition-all duration-200"
-                style={{ backgroundColor: '#F05A26' }}
+                className="h-[50px] md:h-[52px] px-10 md:px-12 font-poppins font-semibold text-[15px] 
+                         text-white rounded-full
+                         shadow-[0_3px_10px_rgba(240,90,38,0.25)] hover:shadow-[0_6px_20px_rgba(240,90,38,0.35)]
+                         hover:scale-[1.02] active:scale-[0.98] 
+                         transition-all duration-200"
+                style={{ 
+                  background: 'linear-gradient(180deg, #F46A37 0%, #E85522 100%)'
+                }}
               >
                 Try for Free Now
-              </Button>
+              </button>
             </div>
           </div>
         </div>

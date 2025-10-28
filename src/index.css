@@ -8,7 +8,7 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 15 83% 93%;
+    --background: 15 100% 98%;
     --foreground: 0 0% 10%;
 
     --card: 0 0% 100%;
@@ -42,11 +42,14 @@ All colors MUST be HSL.
     --coral: 12 88% 55%;
     --deep-blue: 197 91% 35%;
     --purple-shell: 192 60% 39%;
-    --warm-bg: 15 83% 93%;
+    --warm-bg: 15 100% 98%;
     --text-dark: 0 0% 10%;
     
     /* Animation variables */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Button gradients */
+    --gradient-coral: linear-gradient(180deg, #F46A37 0%, #E85522 100%);
   }
 }
 
