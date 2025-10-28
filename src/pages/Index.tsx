@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { TopNav } from "@/components/TopNav";
+import { LandingScreen } from "@/components/LandingScreen";
 import { QuestionScreen } from "@/components/QuestionScreen";
 import { InputScreen } from "@/components/InputScreen";
 import { ThankYouScreen } from "@/components/ThankYouScreen";
 import { BackgroundTheme } from "@/components/BackgroundTheme";
 import { contentSchema, OnboardingAnswers } from "@/data/contentSchema";
-import heroImage from "@/assets/mini-business-hero.jpg";
+import q1Hero from "@/assets/q1-hero.jpg";
 import screen2Hero from "@/assets/screen2-hero.jpg";
 import screen3Hero from "@/assets/screen3-hero.jpg";
 import screen4Hero from "@/assets/screen4-hero.jpg";
@@ -23,7 +24,7 @@ const emailValidator = (email: string): string | null => {
 };
 
 const Index = () => {
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<OnboardingAnswers>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -31,7 +32,7 @@ const Index = () => {
   useEffect(() => {
     localStorage.removeItem(SUBMISSION_KEY);
     localStorage.removeItem(STORAGE_KEY);
-    setCurrentStep(1);
+    setCurrentStep(0);
     setAnswers({});
     setIsSubmitted(false);
   }, []);
@@ -54,7 +55,7 @@ const Index = () => {
   };
 
   const handleBack = () => {
-    setCurrentStep(prev => Math.max(1, prev - 1));
+    setCurrentStep(prev => Math.max(0, prev - 1));
   };
 
   const handleNameSubmit = (name: string) => {
@@ -95,42 +96,37 @@ const Index = () => {
     <div className="min-h-screen bg-background relative">
       <BackgroundTheme />
       
-      <TopNav 
-        currentStep={currentStep} 
-        totalSteps={5}
-      />
+      {currentStep > 0 && (
+        <TopNav 
+          currentStep={currentStep} 
+          totalSteps={5}
+        />
+      )}
 
       <main className="pb-8">
+        {currentStep === 0 && (
+          <LandingScreen onContinue={() => setCurrentStep(1)} />
+        )}
+
         {currentStep === 1 && (
           <div className="animate-fade-in">
             <div className="w-full max-w-[1000px] mx-auto px-4 pt-8">
-              {/* Title Section */}
-              <div className="text-center mb-6">
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-3">
-                  Mini Business Series
-                </h1>
-                <p className="text-lg md:text-xl text-[#2788A0] font-medium">
-                  The Entrepreneurship Class for Kids Every Parent Recommends
-                </p>
-              </div>
-
-              {/* Hero Image */}
               <div className="mb-10">
                 <img 
-                  src={heroImage} 
-                  alt="Mini Business Series - Brand Logos Collage" 
+                  src={q1Hero} 
+                  alt="Parent and child discovering business class" 
                   className="w-full h-auto rounded-2xl shadow-lg"
                 />
               </div>
             </div>
 
-            {/* Question Section */}
             <QuestionScreen
               step={1}
               title={contentSchema.q1.title}
               subtext={contentSchema.q1.subtext}
               options={contentSchema.q1.options}
               onSelect={(option, index) => handleQuestionSelect("q1", option)}
+              onBack={handleBack}
             />
           </div>
         )}
