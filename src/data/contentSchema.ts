@@ -2,41 +2,30 @@ export const contentSchema = {
   redirectUrl: "https://www.coralacademy.com/class/minibusinessseries-c61a217d-9826-45e5-81a7-ff7cdca717b3",
   logoSrc: "/src/assets/coral-academy-logo.png",
   q1: {
-    title: "What made you curious to check out this class today?",
-    subtext: "Pick one to get started",
+    title: "How soon are you looking to try our free classes?",
+    subtext: "Prepare your child for the new school year.",
     options: [
-      "My child loves business-type topics",
-      "We've tried similar classes before",
-      "Looking for something new and engaging",
-      "Just exploring what's out there"
+      "Right away",
+      "In 1–2 weeks",
+      "Next month",
+      "Just exploring"
     ]
   },
   q2: {
-    title: "What's the best way for kids to learn about business?",
+    title: "Mode of schooling?",
     options: [
-      "Through real stories of famous brands",
-      "By doing creative, hands-on activities",
-      "Through fun challenges and games",
-      "By learning simple money concepts early"
-    ]
-  },
-  q3: {
-    title: "What do you hope your child gains from this class?",
-    options: [
-      "Confidence to share and present ideas",
-      "Understanding how money and business work",
-      "Creativity and problem-solving skills",
-      "Real-world knowledge schools don't teach"
+      "Public/Private schooling",
+      "Homeschooling"
     ]
   },
   name: {
-    title: "Almost done—your name?",
-    label: "Parent Name",
+    title: "What's your name?",
+    label: "Enter your name",
     button: "Next"
   },
   email: {
     title: "Where should we send class details?",
-    label: "Email Address",
+    label: "Enter your email",
     button: "Submit"
   },
   thankyou: {
@@ -49,7 +38,6 @@ export const contentSchema = {
 export type OnboardingAnswers = {
   q1?: string;
   q2?: string;
-  q3?: string;
   name?: string;
   email?: string;
   timestamp?: number;

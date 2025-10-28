@@ -8,7 +8,6 @@ import { BackgroundTheme } from "@/components/BackgroundTheme";
 import { contentSchema, OnboardingAnswers } from "@/data/contentSchema";
 import q1Hero from "@/assets/q1-hero.jpg";
 import screen2Hero from "@/assets/screen2-hero.jpg";
-import screen3Hero from "@/assets/screen3-hero.jpg";
 import screen4Hero from "@/assets/screen4-hero.jpg";
 import screen5Hero from "@/assets/screen5-hero.jpg";
 
@@ -61,7 +60,7 @@ const Index = () => {
   const handleNameSubmit = (name: string) => {
     const newAnswers = { ...answers, name };
     setAnswers(newAnswers);
-    setCurrentStep(5);
+    setCurrentStep(4);
   };
 
   const handleEmailSubmit = (email: string) => {
@@ -99,7 +98,7 @@ const Index = () => {
       {currentStep > 0 && (
         <TopNav 
           currentStep={currentStep} 
-          totalSteps={5}
+          totalSteps={4}
         />
       )}
 
@@ -154,30 +153,8 @@ const Index = () => {
         )}
 
         {currentStep === 3 && (
-          <div className="animate-fade-in">
-            <div className="w-full max-w-[1000px] mx-auto px-4 pt-8">
-              <div className="mb-10">
-                <img 
-                  src={screen3Hero} 
-                  alt="Child presenting ideas" 
-                  className="w-full h-auto rounded-2xl shadow-lg"
-                />
-              </div>
-            </div>
-
-            <QuestionScreen
-              step={3}
-              title={contentSchema.q3.title}
-              options={contentSchema.q3.options}
-              onSelect={(option, index) => handleQuestionSelect("q3", option)}
-              onBack={handleBack}
-            />
-          </div>
-        )}
-
-        {currentStep === 4 && (
           <InputScreen
-            step={4}
+            step={3}
             title={contentSchema.name.title}
             label={contentSchema.name.label}
             type="text"
@@ -188,9 +165,9 @@ const Index = () => {
           />
         )}
 
-        {currentStep === 5 && (
+        {currentStep === 4 && (
           <InputScreen
-            step={5}
+            step={4}
             title={contentSchema.email.title}
             label={contentSchema.email.label}
             type="email"
