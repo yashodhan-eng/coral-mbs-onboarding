@@ -48,6 +48,23 @@ export const LandingScreen = ({ onContinue }: LandingScreenProps) => {
               </div>
             </div>
 
+            {/* CTA Button */}
+            <div className="flex justify-center mb-10 md:mb-12">
+              <button
+                onClick={onContinue}
+                className="h-[50px] md:h-[52px] px-10 md:px-12 font-poppins font-semibold text-[15px] 
+                         text-white rounded-full
+                         shadow-[0_3px_10px_rgba(240,90,38,0.25)] hover:shadow-[0_6px_20px_rgba(240,90,38,0.35)]
+                         hover:scale-[1.02] active:scale-[0.98] 
+                         transition-all duration-200"
+                style={{ 
+                  background: 'linear-gradient(180deg, #F46A37 0%, #E85522 100%)'
+                }}
+              >
+                Try for Free Now
+              </button>
+            </div>
+
             {/* Learning Outcomes Section */}
             <div className="mb-10 md:mb-12">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-[700px] mx-auto">
@@ -86,27 +103,10 @@ export const LandingScreen = ({ onContinue }: LandingScreenProps) => {
             </div>
 
             {/* Schedule Line */}
-            <div className="text-center mb-10 md:mb-12">
+            <div className="text-center">
               <p className="font-inter text-[14px] md:text-[15px] text-accent italic">
                 Classes every Thursday at 4:00 PM PST.
               </p>
-            </div>
-
-            {/* CTA Button */}
-            <div className="flex justify-center">
-              <button
-                onClick={onContinue}
-                className="h-[50px] md:h-[52px] px-10 md:px-12 font-poppins font-semibold text-[15px] 
-                         text-white rounded-full
-                         shadow-[0_3px_10px_rgba(240,90,38,0.25)] hover:shadow-[0_6px_20px_rgba(240,90,38,0.35)]
-                         hover:scale-[1.02] active:scale-[0.98] 
-                         transition-all duration-200"
-                style={{ 
-                  background: 'linear-gradient(180deg, #F46A37 0%, #E85522 100%)'
-                }}
-              >
-                Try for Free Now
-              </button>
             </div>
           </div>
         </div>
