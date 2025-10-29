@@ -1,5 +1,5 @@
 import coralLogo from "@/assets/coral-academy-logo.png";
-import heroImage from "@/assets/mini-business-hero.jpg";
+import heroImage from "@/assets/mbs-hero.webp";
 import { Lightbulb, Palette, MessageCircle, Rocket } from "lucide-react";
 
 interface LandingScreenProps {
