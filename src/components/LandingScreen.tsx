@@ -1,12 +1,15 @@
 import coralLogo from "@/assets/coral-academy-logo.png";
 import heroImage from "@/assets/mbs-hero.webp";
-import { Lightbulb, Palette, MessageCircle, Rocket } from "lucide-react";
+import { Lightbulb, Palette, MessageCircle, Rocket, ChevronDown } from "lucide-react";
+import { useState } from "react";
 
 interface LandingScreenProps {
   onContinue: () => void;
 }
 
 export const LandingScreen = ({ onContinue }: LandingScreenProps) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  
   return (
     <div className="min-h-screen bg-background relative">
       {/* Logo at top center */}
@@ -98,6 +101,62 @@ export const LandingScreen = ({ onContinue }: LandingScreenProps) => {
                   <p className="font-poppins font-medium text-[13px] md:text-[14px] text-foreground">
                     Entrepreneurial Thinking
                   </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Parent Testimonial Section */}
+            <div className="mb-10 md:mb-12 max-w-[700px] mx-auto">
+              <div 
+                className="bg-[#1a1a1a] rounded-2xl p-5 md:p-6 relative overflow-hidden"
+                style={{
+                  boxShadow: '0 0 40px rgba(240, 90, 38, 0.15), 0 8px 24px rgba(0, 0, 0, 0.1)',
+                  animation: 'pulse-glow 3s ease-in-out infinite'
+                }}
+              >
+                {/* Parent Info at Top */}
+                <div className="mb-4">
+                  <h3 className="font-poppins font-semibold text-[16px] md:text-[17px] text-white">
+                    Sarah
+                  </h3>
+                  <p className="font-poppins text-[13px] md:text-[14px] text-gray-400">
+                    California
+                  </p>
+                </div>
+
+                {/* Testimonial Text */}
+                <div className="relative">
+                  <div className={`${!isExpanded ? 'max-h-[140px] md:max-h-[120px]' : ''} overflow-hidden relative`}>
+                    <p className="font-poppins text-[14px] md:text-[15px] text-gray-200 leading-relaxed">
+                      As a parent with an MBA, I genuinely wish I had something like this growing up. My 9-year-old son dreams of becoming an entrepreneur — he loves watching Shark Tank, setting up lemonade stands, and learning how companies are built. We've tried a few online classes before, but Coral Academy's Mini Business Series truly stands out.
+                      {isExpanded && (
+                        <span>
+                          {" "}Each week, they explore a real company — from LEGO's bankruptcy turnaround to how founders built their brands. What I love most is that it's not just storytelling — kids get to think, create, and present their ideas. In a recent class on Nike, my son designed his own shoe, decided its USP, and even set a price for it! I was amazed hearing the creative ideas the kids shared. The class is engaging, hands-on, and teaches real-world thinking in such a fun way. I often find myself listening in while doing chores because the discussions are genuinely interesting!
+                        </span>
+                      )}
+                    </p>
+                    
+                    {/* Gradient Fade Overlay (only when collapsed) */}
+                    {!isExpanded && (
+                      <div 
+                        className="absolute bottom-0 left-0 right-0 h-20 pointer-events-none"
+                        style={{
+                          background: 'linear-gradient(to bottom, transparent, #1a1a1a)'
+                        }}
+                      />
+                    )}
+                  </div>
+
+                  {/* Show More/Less Button */}
+                  <button
+                    onClick={() => setIsExpanded(!isExpanded)}
+                    className="mt-3 flex items-center gap-1 font-poppins font-medium text-[14px] text-primary hover:text-primary/90 transition-colors"
+                  >
+                    {isExpanded ? 'Show less' : 'Show more'}
+                    <ChevronDown 
+                      className={`w-4 h-4 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}
+                    />
+                  </button>
                 </div>
               </div>
             </div>

@@ -51,6 +51,15 @@ All colors MUST be HSL.
     /* Button gradients */
     --gradient-coral: linear-gradient(180deg, #F46A37 0%, #E85522 100%);
   }
+
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 40px rgba(240, 90, 38, 0.15), 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+    50% {
+      box-shadow: 0 0 50px rgba(240, 90, 38, 0.25), 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+  }
 }
 
 @layer base {
