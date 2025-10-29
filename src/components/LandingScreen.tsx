@@ -107,8 +107,13 @@ export const LandingScreen = ({ onContinue }: LandingScreenProps) => {
 
             {/* Parent Testimonial Section */}
             <div className="mb-10 md:mb-12 max-w-[700px] mx-auto">
+              {/* Section Title */}
+              <h2 className="font-poppins font-semibold text-[22px] md:text-[24px] text-foreground text-center mb-6">
+                Parent Testimonial
+              </h2>
+
               <div 
-                className="bg-[#1a1a1a] rounded-2xl p-5 md:p-6 relative overflow-hidden"
+                className="bg-white rounded-2xl p-5 md:p-6 relative overflow-hidden"
                 style={{
                   boxShadow: '0 0 40px rgba(240, 90, 38, 0.15), 0 8px 24px rgba(0, 0, 0, 0.1)',
                   animation: 'pulse-glow 3s ease-in-out infinite'
@@ -116,10 +121,10 @@ export const LandingScreen = ({ onContinue }: LandingScreenProps) => {
               >
                 {/* Parent Info at Top */}
                 <div className="mb-4">
-                  <h3 className="font-poppins font-semibold text-[16px] md:text-[17px] text-white">
+                  <h3 className="font-poppins font-semibold text-[16px] md:text-[17px] text-foreground">
                     Sarah
                   </h3>
-                  <p className="font-poppins text-[13px] md:text-[14px] text-gray-400">
+                  <p className="font-poppins text-[13px] md:text-[14px] text-secondary">
                     California
                   </p>
                 </div>
@@ -127,7 +132,7 @@ export const LandingScreen = ({ onContinue }: LandingScreenProps) => {
                 {/* Testimonial Text */}
                 <div className="relative">
                   <div className={`${!isExpanded ? 'max-h-[140px] md:max-h-[120px]' : ''} overflow-hidden relative`}>
-                    <p className="font-poppins text-[14px] md:text-[15px] text-gray-200 leading-relaxed">
+                    <p className="font-poppins text-[14px] md:text-[15px] text-foreground leading-relaxed">
                       As a parent with an MBA, I genuinely wish I had something like this growing up. My 9-year-old son dreams of becoming an entrepreneur — he loves watching Shark Tank, setting up lemonade stands, and learning how companies are built. We've tried a few online classes before, but Coral Academy's Mini Business Series truly stands out.
                       {isExpanded && (
                         <span>
@@ -141,7 +146,7 @@ export const LandingScreen = ({ onContinue }: LandingScreenProps) => {
                       <div 
                         className="absolute bottom-0 left-0 right-0 h-20 pointer-events-none"
                         style={{
-                          background: 'linear-gradient(to bottom, transparent, #1a1a1a)'
+                          background: 'linear-gradient(to bottom, transparent, white)'
                         }}
                       />
                     )}
