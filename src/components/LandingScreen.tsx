@@ -43,7 +43,7 @@ export const LandingScreen = ({ onContinue }: LandingScreenProps) => {
                 <img 
                   src={heroImage} 
                   alt="Mini Business Series - Brand Logos Collage" 
-                  className="w-full h-auto rounded-2xl shadow-[0_8px_24px_rgba(0,0,0,0.08)]"
+                  className="w-full h-auto rounded-2xl border-4 border-white shadow-[0_12px_40px_rgba(0,0,0,0.12),0_4px_12px_rgba(0,0,0,0.08)]"
                 />
               </div>
             </div>
