@@ -105,7 +105,7 @@ export const LandingScreen = ({ onContinue }: LandingScreenProps) => {
                     <Lightbulb className="w-5 h-5 text-primary" strokeWidth={2} />
                   </div>
                   <p className="font-poppins text-[14px] md:text-[15px] text-secondary leading-relaxed">
-                    Explore the incredible journeys of brands like Disney, Netflix, and SpaceX — and how their founders transformed big dreams into global empires.
+                    Explore iconic brands like Disney, Netflix, and SpaceX to uncover what turned big ideas into billion-dollar businesses.
                   </p>
                 </div>
 
@@ -150,26 +150,52 @@ export const LandingScreen = ({ onContinue }: LandingScreenProps) => {
                 </button>
 
                 {isScheduleExpanded && (
-                  <div className="mt-4 space-y-3 animate-fade-in">
-                    {/* Week 1 */}
-                    <div className="bg-white rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.05)] p-4 md:p-5 pl-[70px]">
-                      <p className="font-poppins text-[14px] md:text-[15px] text-secondary leading-relaxed">
-                        <span className="font-medium text-foreground">a)</span> DreamWorks: Storytelling, franchises & creativity in business
-                      </p>
-                    </div>
+                  <div className="mt-4 bg-white rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.05)] p-5 md:p-6 animate-fade-in">
+                    <div className="space-y-5">
+                      {/* Week 1 */}
+                      <div className="flex gap-4">
+                        <div className="flex-shrink-0 w-16">
+                          <span className="font-poppins font-semibold text-[15px] text-primary">Week 1</span>
+                        </div>
+                        <div className="flex-1 border-l-2 border-gray-100 pl-4">
+                          <h3 className="font-poppins font-semibold text-[15px] md:text-[16px] text-foreground mb-1">
+                            DreamWorks
+                          </h3>
+                          <p className="font-poppins text-[14px] text-secondary leading-relaxed">
+                            Storytelling, franchises & creativity in business
+                          </p>
+                        </div>
+                      </div>
 
-                    {/* Week 2 */}
-                    <div className="bg-white rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.05)] p-4 md:p-5 pl-[70px]">
-                      <p className="font-poppins text-[14px] md:text-[15px] text-secondary leading-relaxed">
-                        <span className="font-medium text-foreground">b)</span> Apple: Product design, innovation & brand identity
-                      </p>
-                    </div>
+                      {/* Week 2 */}
+                      <div className="flex gap-4">
+                        <div className="flex-shrink-0 w-16">
+                          <span className="font-poppins font-semibold text-[15px] text-primary">Week 2</span>
+                        </div>
+                        <div className="flex-1 border-l-2 border-gray-100 pl-4">
+                          <h3 className="font-poppins font-semibold text-[15px] md:text-[16px] text-foreground mb-1">
+                            Apple
+                          </h3>
+                          <p className="font-poppins text-[14px] text-secondary leading-relaxed">
+                            Product design, innovation & brand identity
+                          </p>
+                        </div>
+                      </div>
 
-                    {/* Week 3 */}
-                    <div className="bg-white rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.05)] p-4 md:p-5 pl-[70px]">
-                      <p className="font-poppins text-[14px] md:text-[15px] text-secondary leading-relaxed">
-                        <span className="font-medium text-foreground">c)</span> Starbucks: Experience-driven branding & global expansion
-                      </p>
+                      {/* Week 3 */}
+                      <div className="flex gap-4">
+                        <div className="flex-shrink-0 w-16">
+                          <span className="font-poppins font-semibold text-[15px] text-primary">Week 3</span>
+                        </div>
+                        <div className="flex-1 border-l-2 border-gray-100 pl-4">
+                          <h3 className="font-poppins font-semibold text-[15px] md:text-[16px] text-foreground mb-1">
+                            Starbucks
+                          </h3>
+                          <p className="font-poppins text-[14px] text-secondary leading-relaxed">
+                            Experience-driven branding & global expansion
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 )}
