@@ -88,8 +88,15 @@ export const LandingScreen = ({ onContinue }: LandingScreenProps) => {
                   background: 'linear-gradient(180deg, #F46A37 0%, #E85522 100%)'
                 }}
               >
-                Try for Free Now
+                Enroll for Free
               </button>
+            </div>
+
+            {/* Schedule Line */}
+            <div className="text-center mb-10 md:mb-12">
+              <p className="font-inter text-[14px] md:text-[15px] text-accent italic font-medium">
+                Classes every Thursday at 4:00 PM PST.
+              </p>
             </div>
 
             {/* What Kids Learn Section */}
@@ -151,48 +158,48 @@ export const LandingScreen = ({ onContinue }: LandingScreenProps) => {
 
                 {isScheduleExpanded && (
                   <div className="mt-4 bg-white rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.05)] p-5 md:p-6 animate-fade-in">
-                    <div className="space-y-5">
+                    <div className="space-y-6">
                       {/* Week 1 */}
-                      <div className="flex gap-4">
-                        <div className="flex-shrink-0 w-16">
-                          <span className="font-poppins font-semibold text-[15px] text-primary">Week 1</span>
+                      <div className="flex gap-5">
+                        <div className="flex-shrink-0 w-[60px]">
+                          <span className="font-poppins font-semibold text-[14px] text-primary">Week 1</span>
                         </div>
-                        <div className="flex-1 border-l-2 border-gray-100 pl-4">
-                          <h3 className="font-poppins font-semibold text-[15px] md:text-[16px] text-foreground mb-1">
+                        <div className="flex-1 border-l-2 border-[#F5F5F5] pl-5">
+                          <h3 className="font-poppins font-semibold text-[15px] text-foreground mb-1">
                             DreamWorks
                           </h3>
-                          <p className="font-poppins text-[14px] text-secondary leading-relaxed">
-                            Storytelling, franchises & creativity in business
+                          <p className="font-poppins text-[13px] text-secondary leading-snug">
+                            Storytelling, franchises &<br />creativity in business
                           </p>
                         </div>
                       </div>
 
                       {/* Week 2 */}
-                      <div className="flex gap-4">
-                        <div className="flex-shrink-0 w-16">
-                          <span className="font-poppins font-semibold text-[15px] text-primary">Week 2</span>
+                      <div className="flex gap-5">
+                        <div className="flex-shrink-0 w-[60px]">
+                          <span className="font-poppins font-semibold text-[14px] text-primary">Week 2</span>
                         </div>
-                        <div className="flex-1 border-l-2 border-gray-100 pl-4">
-                          <h3 className="font-poppins font-semibold text-[15px] md:text-[16px] text-foreground mb-1">
+                        <div className="flex-1 border-l-2 border-[#F5F5F5] pl-5">
+                          <h3 className="font-poppins font-semibold text-[15px] text-foreground mb-1">
                             Apple
                           </h3>
-                          <p className="font-poppins text-[14px] text-secondary leading-relaxed">
-                            Product design, innovation & brand identity
+                          <p className="font-poppins text-[13px] text-secondary leading-snug">
+                            Product design, innovation<br />& brand identity
                           </p>
                         </div>
                       </div>
 
                       {/* Week 3 */}
-                      <div className="flex gap-4">
-                        <div className="flex-shrink-0 w-16">
-                          <span className="font-poppins font-semibold text-[15px] text-primary">Week 3</span>
+                      <div className="flex gap-5">
+                        <div className="flex-shrink-0 w-[60px]">
+                          <span className="font-poppins font-semibold text-[14px] text-primary">Week 3</span>
                         </div>
-                        <div className="flex-1 border-l-2 border-gray-100 pl-4">
-                          <h3 className="font-poppins font-semibold text-[15px] md:text-[16px] text-foreground mb-1">
+                        <div className="flex-1 border-l-2 border-[#F5F5F5] pl-5">
+                          <h3 className="font-poppins font-semibold text-[15px] text-foreground mb-1">
                             Starbucks
                           </h3>
-                          <p className="font-poppins text-[14px] text-secondary leading-relaxed">
-                            Experience-driven branding & global expansion
+                          <p className="font-poppins text-[13px] text-secondary leading-snug">
+                            Experience-driven branding<br />& global expansion
                           </p>
                         </div>
                       </div>
@@ -200,13 +207,6 @@ export const LandingScreen = ({ onContinue }: LandingScreenProps) => {
                   </div>
                 )}
               </div>
-            </div>
-
-            {/* Schedule Line */}
-            <div className="text-center mb-10 md:mb-12">
-              <p className="font-inter text-[14px] md:text-[15px] text-accent italic font-medium">
-                Classes every Thursday at 4:00 PM PST.
-              </p>
             </div>
 
             {/* Parent Testimonial Section */}
@@ -297,7 +297,7 @@ export const LandingScreen = ({ onContinue }: LandingScreenProps) => {
                   background: 'linear-gradient(180deg, #F46A37 0%, #E85522 100%)'
                 }}
               >
-                Try for Free Now
+                Enroll for Free
               </button>
             </div>
           </div>
