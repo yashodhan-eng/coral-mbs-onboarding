@@ -24,7 +24,7 @@ export const contentSchema = {
     button: "Next"
   },
   email: {
-    title: "Where should we send class details?",
+    title: "Kindly share your email address",
     label: "Enter your email",
     button: "Submit"
   },
