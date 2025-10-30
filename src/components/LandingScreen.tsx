@@ -130,7 +130,7 @@ export const LandingScreen = ({ onContinue }: LandingScreenProps) => {
 
             {/* Schedule Line */}
             <div className="text-center mb-10 md:mb-12">
-              <p className="font-inter text-[14px] md:text-[15px] text-accent italic">
+              <p className="font-inter text-[14px] md:text-[15px] text-accent italic font-semibold">
                 Classes every Thursday at 4:00 PM PST.
               </p>
             </div>
@@ -150,23 +150,33 @@ export const LandingScreen = ({ onContinue }: LandingScreenProps) => {
                 }}
               >
                 {/* Parent Info at Top */}
-                <div className="mb-4">
-                  <h3 className="font-poppins font-semibold text-[16px] md:text-[17px] text-foreground">
-                    Sarah
-                  </h3>
-                  <p className="font-poppins text-[13px] md:text-[14px] text-secondary">
-                    California
-                  </p>
+                <div className="mb-4 flex items-center gap-3">
+                  {/* Avatar Circle */}
+                  <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-[#FFE5DC] flex items-center justify-center flex-shrink-0">
+                    <span className="font-poppins font-semibold text-[20px] md:text-[22px] text-primary">
+                      S
+                    </span>
+                  </div>
+                  {/* Name and Location */}
+                  <div>
+                    <h3 className="font-poppins font-semibold text-[16px] md:text-[17px] text-foreground">
+                      Sarah
+                    </h3>
+                    <p className="font-poppins text-[13px] md:text-[14px] text-secondary flex items-center gap-1">
+                      <span className="text-primary">📍</span> California
+                    </p>
+                  </div>
                 </div>
 
                 {/* Testimonial Text */}
                 <div className="relative">
                   <div className={`${!isExpanded ? 'max-h-[140px] md:max-h-[120px]' : ''} overflow-hidden relative`}>
                     <p className="font-poppins text-[14px] md:text-[15px] text-foreground leading-relaxed">
-                      As a parent with an MBA, I genuinely wish I had something like this growing up. My 9-year-old son dreams of becoming an entrepreneur — he loves watching Shark Tank, setting up lemonade stands, and learning how companies are built. We've tried a few online classes before, but Coral Academy's Mini Business Series truly stands out.
+                      I have a business background, and honestly, I wish I had something like this when I was a kid. My 9-year-old is super into Shark Tank, lemonade stands, and how companies make money. We've tried a couple of online classes before, but this class remains his favourite.
                       {isExpanded && (
                         <span>
-                          {" "}Each week, they explore a real company — from LEGO's bankruptcy turnaround to how founders built their brands. What I love most is that it's not just storytelling — kids get to think, create, and present their ideas. In a recent class on Nike, my son designed his own shoe, decided its USP, and even set a price for it! I was amazed hearing the creative ideas the kids shared.
+                          {" "}Every week, they discuss real companies like how LEGO bounced back from bankruptcy or how big brands got started. But what I really appreciate is that it's not just passive learning. During the Nike class, my son designed his own shoe, gave it a name, figured out the pricing, and even pitched it to his friends. I was genuinely impressed by the thought he put into it.
+                          {" "}I often find myself listening in while doing chores because the discussions are genuinely interesting. I can't thank the teacher and the platform enough for such a hands-on, fun class.
                         </span>
                       )}
                     </p>

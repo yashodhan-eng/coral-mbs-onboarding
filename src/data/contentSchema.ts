@@ -3,7 +3,7 @@ export const contentSchema = {
   logoSrc: "/src/assets/coral-academy-logo.png",
   q1: {
     title: "How soon are you looking to try our free classes?",
-    subtext: "Prepare your child for the new school year.",
+    subtext: "Help your child think like a young entrepreneur",
     options: [
       "Right away",
       "In 1–2 weeks",
@@ -12,7 +12,7 @@ export const contentSchema = {
     ]
   },
   q2: {
-    title: "Mode of schooling?",
+    title: "What's your child's current schooling style?",
     options: [
       "Public/Private schooling",
       "Homeschooling"
