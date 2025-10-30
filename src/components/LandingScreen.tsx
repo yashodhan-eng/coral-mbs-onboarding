@@ -1,7 +1,9 @@
 import coralLogo from "@/assets/coral-academy-logo.png";
 import heroImage from "@/assets/mbs-hero.webp";
-import { Lightbulb, Palette, MessageCircle, Rocket, ChevronDown } from "lucide-react";
+import heroVideo from "@/assets/mbs-video.mp4";
+import { Lightbulb, Palette, MessageCircle, Rocket, ChevronDown, Play } from "lucide-react";
 import { useState } from "react";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
 interface LandingScreenProps {
   onContinue: () => void;
@@ -9,6 +11,7 @@ interface LandingScreenProps {
 
 export const LandingScreen = ({ onContinue }: LandingScreenProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
   
   return (
     <div className="min-h-screen bg-background relative">
@@ -40,14 +43,34 @@ export const LandingScreen = ({ onContinue }: LandingScreenProps) => {
               </div>
             </div>
 
-            {/* Hero Image */}
+            {/* Hero Image with Video */}
             <div className="mb-10 md:mb-12">
               <div className="max-w-[90%] md:max-w-[85%] mx-auto">
-                <img 
-                  src={heroImage} 
-                  alt="Mini Business Series - Brand Logos Collage" 
-                  className="w-full h-auto rounded-2xl border-4 border-white shadow-[0_12px_40px_rgba(0,0,0,0.12),0_4px_12px_rgba(0,0,0,0.08)]"
-                />
+                <Dialog open={isVideoOpen} onOpenChange={setIsVideoOpen}>
+                  <DialogTrigger asChild>
+                    <div className="relative cursor-pointer group">
+                      <img 
+                        src={heroImage} 
+                        alt="Mini Business Series - Brand Logos Collage" 
+                        className="w-full h-auto rounded-2xl border-4 border-white shadow-[0_12px_40px_rgba(0,0,0,0.12),0_4px_12px_rgba(0,0,0,0.08)] transition-transform duration-200 group-hover:scale-[1.02]"
+                      />
+                      {/* Play Button Overlay */}
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-primary/90 flex items-center justify-center shadow-[0_8px_24px_rgba(240,90,38,0.4)] group-hover:bg-primary group-hover:scale-110 transition-all duration-200">
+                          <Play className="w-8 h-8 md:w-10 md:h-10 text-white fill-white ml-1" />
+                        </div>
+                      </div>
+                    </div>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-[90vw] md:max-w-[500px] p-0 bg-black border-none">
+                    <video 
+                      src={heroVideo} 
+                      controls 
+                      autoPlay
+                      className="w-full h-auto"
+                    />
+                  </DialogContent>
+                </Dialog>
               </div>
             </div>
 
@@ -143,7 +166,7 @@ export const LandingScreen = ({ onContinue }: LandingScreenProps) => {
                       As a parent with an MBA, I genuinely wish I had something like this growing up. My 9-year-old son dreams of becoming an entrepreneur — he loves watching Shark Tank, setting up lemonade stands, and learning how companies are built. We've tried a few online classes before, but Coral Academy's Mini Business Series truly stands out.
                       {isExpanded && (
                         <span>
-                          {" "}Each week, they explore a real company — from LEGO's bankruptcy turnaround to how founders built their brands. What I love most is that it's not just storytelling — kids get to think, create, and present their ideas. In a recent class on Nike, my son designed his own shoe, decided its USP, and even set a price for it! I was amazed hearing the creative ideas the kids shared. The class is engaging, hands-on, and teaches real-world thinking in such a fun way. I often find myself listening in while doing chores because the discussions are genuinely interesting!
+                          {" "}Each week, they explore a real company — from LEGO's bankruptcy turnaround to how founders built their brands. What I love most is that it's not just storytelling — kids get to think, create, and present their ideas. In a recent class on Nike, my son designed his own shoe, decided its USP, and even set a price for it! I was amazed hearing the creative ideas the kids shared.
                         </span>
                       )}
                     </p>
