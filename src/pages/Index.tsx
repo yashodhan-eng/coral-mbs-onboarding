@@ -6,6 +6,9 @@ import { InputScreen } from "@/components/InputScreen";
 import { ThankYouScreen } from "@/components/ThankYouScreen";
 import { BackgroundTheme } from "@/components/BackgroundTheme";
 import { contentSchema, OnboardingAnswers } from "@/data/contentSchema";
+import { adCampaignService } from "../lib/api";
+import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
 import q1Hero from "@/assets/q1-hero.jpg";
 import screen2Hero from "@/assets/screen2-hero.jpg";
 import screen4Hero from "@/assets/screen4-hero.jpg";
@@ -22,10 +25,30 @@ const emailValidator = (email: string): string | null => {
   return null;
 };
 
+// Map quiz answers to backend format
+const mapHowSoon = (answer: string): string => {
+  const mapping: Record<string, string> = {
+    'Right away': 'Right Away',
+    'In 1–2 weeks': '1-2 Weeks',
+    'Next month': 'next month',
+    'Just exploring': 'just exploring'
+  };
+  return mapping[answer] || answer;
+};
+
+const mapSchoolingMode = (answer: string): string => {
+  const mapping: Record<string, string> = {
+    'Public/Private schooling': 'Public/private schooling',
+    'Homeschooling': 'homeschooling'
+  };
+  return mapping[answer] || answer;
+};
+
 const Index = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<OnboardingAnswers>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Clear storage and start fresh for preview
   useEffect(() => {
@@ -63,7 +86,7 @@ const Index = () => {
     setCurrentStep(4);
   };
 
-  const handleEmailSubmit = (email: string) => {
+  const handleEmailSubmit = async (email: string, recaptchaToken?: string | null) => {
     const finalAnswers = { 
       ...answers, 
       email,
@@ -71,10 +94,60 @@ const Index = () => {
     };
     setAnswers(finalAnswers);
     
-    // Save submission
+    // Save submission locally
     localStorage.setItem(SUBMISSION_KEY, JSON.stringify(finalAnswers));
     
-    setIsSubmitted(true);
+    // Submit to backend API
+    setIsSubmitting(true);
+    try {
+      await submitToBackend(finalAnswers, recaptchaToken);
+      setIsSubmitted(true);
+    } catch (error: any) {
+      setIsSubmitting(false);
+      console.error('Submission error:', error);
+      
+      // Show error message
+      let errorMessage = 'Registration failed. Please try again.';
+      if (error.errorType === 'duplicate_email') {
+        errorMessage = 'Email already registered. Please use a different email address.';
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
+      toast.error(errorMessage);
+    }
+  };
+
+  const submitToBackend = async (finalAnswers: OnboardingAnswers, recaptchaToken?: string | null) => {
+    // Validate required fields before sending
+    if (!finalAnswers.name || !finalAnswers.email) {
+      throw new Error('Name and email are required');
+    }
+
+    if (!recaptchaToken) {
+      throw new Error('reCAPTCHA verification is required. Please complete the verification.');
+    }
+
+    console.log('Submitting to backend with:', {
+      name: finalAnswers.name,
+      email: finalAnswers.email,
+      source: 'MBS_Quiz_Page',
+      how_soon: finalAnswers.q1 ? mapHowSoon(finalAnswers.q1) : null,
+      schooling_mode: finalAnswers.q2 ? mapSchoolingMode(finalAnswers.q2) : null,
+      hasRecaptchaToken: !!recaptchaToken,
+    });
+
+    const response = await adCampaignService.register({
+      name: finalAnswers.name,
+      email: finalAnswers.email,
+      source: 'MBS_Quiz_Page',
+      how_soon: finalAnswers.q1 ? mapHowSoon(finalAnswers.q1) : null,
+      schooling_mode: finalAnswers.q2 ? mapSchoolingMode(finalAnswers.q2) : null,
+      recaptchaToken: recaptchaToken,
+    });
+
+    if (!response.success) {
+      throw new Error(response.error || 'Registration failed');
+    }
   };
 
   if (isSubmitted) {
@@ -87,6 +160,18 @@ const Index = () => {
           delayMs={contentSchema.thankyou.delayMs}
           redirectUrl={contentSchema.redirectUrl}
         />
+      </div>
+    );
+  }
+
+  if (isSubmitting) {
+    return (
+      <div className="min-h-screen bg-background relative flex items-center justify-center">
+        <BackgroundTheme />
+        <div className="text-center space-y-4">
+          <Loader2 className="w-12 h-12 md:w-16 md:h-16 text-primary animate-spin mx-auto" />
+          <p className="text-lg text-muted-foreground">Submitting your information...</p>
+        </div>
       </div>
     );
   }
