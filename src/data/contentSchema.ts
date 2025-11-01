@@ -36,8 +36,8 @@ export const contentSchema = {
 };
 
 export type OnboardingAnswers = {
-  q1?: string;
-  q2?: string;
+  q1?: string;  // "How soon are you looking to try our free classes?"
+  q2?: string;  // "What's your child's current schooling style?"
   name?: string;
   email?: string;
   timestamp?: number;
