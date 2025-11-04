@@ -45,7 +45,7 @@ export const MultiSelectScreen = ({
             <img 
               src={heroImage} 
               alt="Kids learning about different subjects" 
-              className="w-full h-auto max-h-[180px] md:max-h-none object-cover md:object-contain rounded-2xl shadow-lg"
+              className="w-full h-auto max-h-[140px] md:max-h-[200px] lg:max-h-[240px] object-cover md:object-contain rounded-2xl shadow-lg"
               loading="eager"
             />
           </div>
