@@ -108,6 +108,16 @@ export default {
         "progress-fill": {
           "0%": { width: "0%" },
           "100%": { width: "100%" }
+        },
+        "slide-in-right": {
+          "0%": {
+            opacity: "0",
+            transform: "translateX(100%)"
+          },
+          "100%": {
+            opacity: "1",
+            transform: "translateX(0)"
+          }
         }
       },
       animation: {
@@ -115,7 +125,8 @@ export default {
         "accordion-up": "accordion-up 0.2s ease-out",
         "fade-in": "fade-in 0.4s ease-out",
         "slide-up": "slide-up 0.5s ease-out",
-        "progress-fill": "progress-fill 0.3s ease-out"
+        "progress-fill": "progress-fill 0.3s ease-out",
+        "slide-in-right": "slide-in-right 0.5s ease-out"
       },
     },
   },
