@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { TopNav } from "@/components/TopNav";
 import { LandingScreen } from "@/components/LandingScreen";
 import { QuestionScreen } from "@/components/QuestionScreen";
+import { MultiSelectScreen } from "@/components/MultiSelectScreen";
 import { InputScreen } from "@/components/InputScreen";
 import { ThankYouScreen } from "@/components/ThankYouScreen";
 import { BackgroundTheme } from "@/components/BackgroundTheme";
@@ -36,12 +37,8 @@ const mapHowSoon = (answer: string): string => {
   return mapping[answer] || answer;
 };
 
-const mapSchoolingMode = (answer: string): string => {
-  const mapping: Record<string, string> = {
-    'Public/Private schooling': 'Public/private schooling',
-    'Homeschooling': 'homeschooling'
-  };
-  return mapping[answer] || answer;
+const mapSubjectInterests = (answers: string[]): string => {
+  return answers.join(', ');
 };
 
 const Index = () => {
@@ -68,6 +65,16 @@ const Index = () => {
 
   const handleQuestionSelect = (questionKey: string, value: string) => {
     const newAnswers = { ...answers, [questionKey]: value };
+    setAnswers(newAnswers);
+    
+    // Auto-advance after a brief delay for visual feedback
+    setTimeout(() => {
+      setCurrentStep(prev => prev + 1);
+    }, 200);
+  };
+
+  const handleMultiSelect = (questionKey: string, values: string[]) => {
+    const newAnswers = { ...answers, [questionKey]: values };
     setAnswers(newAnswers);
     
     // Auto-advance after a brief delay for visual feedback
@@ -132,7 +139,7 @@ const Index = () => {
       email: finalAnswers.email,
       source: 'MBS_Quiz_Page',
       how_soon: finalAnswers.q1 ? mapHowSoon(finalAnswers.q1) : null,
-      schooling_mode: finalAnswers.q2 ? mapSchoolingMode(finalAnswers.q2) : null,
+      schooling_mode: finalAnswers.q2 ? mapSubjectInterests(finalAnswers.q2) : null,
       hasRecaptchaToken: !!recaptchaToken,
     });
 
@@ -141,7 +148,7 @@ const Index = () => {
       email: finalAnswers.email,
       source: 'MBS_Quiz_Page',
       how_soon: finalAnswers.q1 ? mapHowSoon(finalAnswers.q1) : null,
-      schooling_mode: finalAnswers.q2 ? mapSchoolingMode(finalAnswers.q2) : null,
+      schooling_mode: finalAnswers.q2 ? mapSubjectInterests(finalAnswers.q2) : null,
       recaptchaToken: recaptchaToken,
     });
 
@@ -217,26 +224,15 @@ const Index = () => {
         )}
 
         {currentStep === 2 && (
-          <div className="animate-fade-in">
-            <div className="w-full max-w-[900px] mx-auto px-4 pt-4 md:pt-8">
-              <div className="mb-4 md:mb-8">
-                <img 
-                  src={screen2Hero} 
-                  alt="Kids learning about business" 
-                  className="w-full h-auto max-h-[180px] md:max-h-none object-cover md:object-contain rounded-2xl shadow-lg"
-                  loading="eager"
-                />
-              </div>
-            </div>
-
-            <QuestionScreen
-              step={2}
-              title={contentSchema.q2.title}
-              options={contentSchema.q2.options}
-              onSelect={(option, index) => handleQuestionSelect("q2", option)}
-              onBack={handleBack}
-            />
-          </div>
+          <MultiSelectScreen
+            step={2}
+            title={contentSchema.q2.title}
+            subtext={contentSchema.q2.subtext}
+            options={contentSchema.q2.options}
+            onSubmit={(selected) => handleMultiSelect("q2", selected)}
+            onBack={handleBack}
+            heroImage={screen2Hero}
+          />
         )}
 
         {currentStep === 3 && (

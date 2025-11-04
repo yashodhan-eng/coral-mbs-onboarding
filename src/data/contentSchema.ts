@@ -12,10 +12,15 @@ export const contentSchema = {
     ]
   },
   q2: {
-    title: "What's your child's current schooling style?",
+    title: "What topics is your child interested in?",
+    subtext: "Select multiple and submit.",
     options: [
-      "Public/Private schooling",
-      "Homeschooling"
+      "Business",
+      "Science",
+      "Coding",
+      "AI",
+      "Drawing",
+      "Logic"
     ]
   },
   name: {
@@ -37,7 +42,7 @@ export const contentSchema = {
 
 export type OnboardingAnswers = {
   q1?: string;  // "How soon are you looking to try our free classes?"
-  q2?: string;  // "What's your child's current schooling style?"
+  q2?: string[];  // "What topics is your child interested in?" (multi-select)
   name?: string;
   email?: string;
   timestamp?: number;
