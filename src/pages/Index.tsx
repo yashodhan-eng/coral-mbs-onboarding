@@ -11,8 +11,8 @@ import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import q1Hero from "@/assets/q1-hero.jpg";
 import screen2Hero from "@/assets/screen2-hero.jpg";
-import screen4Hero from "@/assets/screen4-hero.jpg";
-import screen5Hero from "@/assets/screen5-hero.jpg";
+import screen4Hero from "@/assets/screen3-hero-new.jpg";
+import screen5Hero from "@/assets/screen5-hero-new.jpg";
 
 const STORAGE_KEY = "coralOnboardingAnswers";
 const SUBMISSION_KEY = "coralOnboardingSubmission";
@@ -194,12 +194,13 @@ const Index = () => {
 
         {currentStep === 1 && (
           <div className="animate-fade-in">
-            <div className="w-full max-w-[1000px] mx-auto px-4 pt-8">
-              <div className="mb-10">
+            <div className="w-full max-w-[900px] mx-auto px-4 pt-4 md:pt-8">
+              <div className="mb-4 md:mb-8">
                 <img 
                   src={q1Hero} 
                   alt="Parent and child discovering business class" 
-                  className="w-full h-auto rounded-2xl shadow-lg"
+                  className="w-full h-auto max-h-[180px] md:max-h-none object-cover md:object-contain rounded-2xl shadow-lg"
+                  loading="eager"
                 />
               </div>
             </div>
@@ -217,12 +218,13 @@ const Index = () => {
 
         {currentStep === 2 && (
           <div className="animate-fade-in">
-            <div className="w-full max-w-[1000px] mx-auto px-4 pt-8">
-              <div className="mb-10">
+            <div className="w-full max-w-[900px] mx-auto px-4 pt-4 md:pt-8">
+              <div className="mb-4 md:mb-8">
                 <img 
                   src={screen2Hero} 
                   alt="Kids learning about business" 
-                  className="w-full h-auto rounded-2xl shadow-lg"
+                  className="w-full h-auto max-h-[180px] md:max-h-none object-cover md:object-contain rounded-2xl shadow-lg"
+                  loading="eager"
                 />
               </div>
             </div>
