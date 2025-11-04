@@ -63,7 +63,7 @@ export const MultiSelectScreen = ({
           </button>
         )}
         
-        <div className="w-full max-w-[360px] md:max-w-[520px] lg:max-w-[640px] space-y-4 md:space-y-6">
+        <div className="w-full max-w-[360px] md:max-w-[680px] lg:max-w-[800px] space-y-3 md:space-y-4">
           <div className="text-center space-y-2">
             <h1 className="text-xl md:text-3xl lg:text-4xl font-semibold text-foreground leading-tight">
               {title}
@@ -75,8 +75,8 @@ export const MultiSelectScreen = ({
             )}
           </div>
 
-          {/* Multi-select grid: 2x3 on mobile, 3x2 on tablet/laptop */}
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+          {/* Multi-select grid: 2x4 on mobile, 4x2 on tablet/laptop */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3">
             {options.map((option, index) => {
               const isSelected = selectedOptions.includes(option);
               return (
@@ -84,7 +84,7 @@ export const MultiSelectScreen = ({
                   key={index}
                   onClick={() => toggleOption(option)}
                   className={`
-                    h-[52px] md:h-[56px] px-4 text-[14px] md:text-[15px] font-medium rounded-full
+                    h-[48px] md:h-[52px] px-3 md:px-4 text-[13px] md:text-[14px] font-medium rounded-full
                     border-2 transition-all duration-200
                     hover:scale-[1.02] active:scale-[0.98]
                     focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
@@ -106,11 +106,11 @@ export const MultiSelectScreen = ({
           </div>
 
           {/* Submit CTA */}
-          <div className="pt-2">
+          <div className="pt-1 md:pt-2">
             <Button
               onClick={handleSubmit}
               disabled={selectedOptions.length === 0}
-              className="w-full h-[52px] md:h-[56px] text-[15px] md:text-lg font-semibold rounded-full
+              className="w-full h-[48px] md:h-[52px] text-[15px] md:text-lg font-semibold rounded-full
                        shadow-lg hover:shadow-xl hover:scale-[1.02]
                        active:scale-[0.98] transition-all duration-200
                        disabled:opacity-50 disabled:cursor-not-allowed"

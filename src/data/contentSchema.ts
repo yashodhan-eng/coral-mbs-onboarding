@@ -15,12 +15,14 @@ export const contentSchema = {
     title: "What topics is your child interested in?",
     subtext: "Select multiple and submit.",
     options: [
-      "Business",
+      "Entrepreneurship",
       "Science",
       "Coding",
       "AI",
       "Drawing",
-      "Logic"
+      "Logic",
+      "History",
+      "Finance"
     ]
   },
   name: {

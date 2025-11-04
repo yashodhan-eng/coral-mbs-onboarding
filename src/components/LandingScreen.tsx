@@ -48,7 +48,7 @@ const testimonials = [
 ];
 
 const features = [
-  { icon: Award, text: "100+ Years of Teacher Experience" },
+  { icon: Award, text: "100+ Years of Collective Teaching Experience" },
   { icon: GraduationCap, text: "Founded by a Stanford Alum & Mom" },
   { icon: Users, text: "Loved by 1000+ Families" }
 ];
