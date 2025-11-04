@@ -1,7 +1,7 @@
 import coralLogo from "@/assets/coral-academy-logo.png";
 import heroImage from "@/assets/mbs-hero.webp";
 import heroVideo from "@/assets/mbs-video.mp4";
-import { Lightbulb, MessageCircle, TrendingUp, Calendar, ChevronDown, Play } from "lucide-react";
+import { Lightbulb, MessageCircle, TrendingUp, Calendar, ChevronDown, Play, Star } from "lucide-react";
 import { useState } from "react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
@@ -23,6 +23,23 @@ export const LandingScreen = ({ onContinue }: LandingScreenProps) => {
           alt="Coral Academy" 
           className="h-10 md:h-12"
         />
+      </div>
+
+      {/* Trustpilot Badge */}
+      <div className="flex items-center justify-center px-6 mb-8">
+        <div className="flex items-center gap-2 bg-white rounded-full px-6 py-3 shadow-sm">
+          <span className="font-poppins font-semibold text-gray-900 text-[14px]">Excellent</span>
+          <div className="flex gap-0.5">
+            {[...Array(5)].map((_, i) => (
+              <Star key={i} className="w-4 h-4 fill-green-500 text-green-500" />
+            ))}
+          </div>
+          <span className="text-gray-900 text-[14px]">
+            <span className="font-semibold">4.7</span>
+            <span className="text-gray-500">/5</span>
+          </span>
+          <span className="text-gray-900 font-medium text-[14px]">Trustpilot</span>
+        </div>
       </div>
 
       <main className="pb-12">
