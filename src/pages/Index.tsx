@@ -46,6 +46,7 @@ const Index = () => {
   const [answers, setAnswers] = useState<OnboardingAnswers>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [redirectUrl, setRedirectUrl] = useState('');
 
   // Clear storage and start fresh for preview
   useEffect(() => {
@@ -108,6 +109,23 @@ const Index = () => {
     setIsSubmitting(true);
     try {
       await submitToBackend(finalAnswers, recaptchaToken);
+      const response = await adCampaignService.signin({ email, recaptchaToken });
+      console.log('Signin response:', response);
+      const navlink = response.magicLink || response.magic_link;
+      if (navlink) {
+        setIsSubmitting(false);
+        setIsSubmitted(true);
+        // window.location.href = navlink;
+        contentSchema.redirectUrl = navlink;
+        setRedirectUrl(navlink);
+        console.log('Redirecting to:', contentSchema.redirectUrl);
+        return;
+      }
+      if (!response.success) {
+        setIsSubmitting(false);
+        let errorMessage = 'Registration failed. Please try again.';
+        toast.error(errorMessage);
+      }
       setIsSubmitted(true);
     } catch (error: any) {
       setIsSubmitting(false);
@@ -157,7 +175,7 @@ const Index = () => {
     }
   };
 
-  if (isSubmitted) {
+  if (isSubmitted && redirectUrl) {
     return (
       <div className="min-h-screen bg-background relative">
         <BackgroundTheme />
