@@ -141,7 +141,7 @@ export const adCampaignService = {
       const redirectTo =
         import.meta.env.VITE_APP_ENV === "development"
           ? "https://www.preprod.coralacademy.com/class/lorem-epsum-cbdc05bd-eaf6-4b4f-b753-698b7a916dbf"
-          : "https://www.coralacademy.com/class/scalesandslime-d8a4adf3-941f-4944-b278-378544601ecc";
+          : "https://www.coralacademy.com/class/minibusinessseries-c61a217d-9826-45e5-81a7-ff7cdca717b3";
       const payload = {
         email: data.email,
         redirectTo: redirectTo,
