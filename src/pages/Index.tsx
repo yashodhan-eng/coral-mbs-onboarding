@@ -10,6 +10,7 @@ import { contentSchema, OnboardingAnswers } from "@/data/contentSchema";
 import { adCampaignService } from "../lib/api";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
+import { trackEvent, trackPageView, identifyUser, trackButtonClick } from "@/lib/mixpanel";
 import q1Hero from "@/assets/q1-hero-new.jpg";
 import screen2Hero from "@/assets/q2-hero-new.jpg";
 import screen4Hero from "@/assets/q3-hero-new.jpg";
@@ -64,9 +65,35 @@ const Index = () => {
     }
   }, [answers]);
 
+  // Track page views for each step
+  useEffect(() => {
+    const stepNames = [
+      'Landing',
+      'Question 1',
+      'Question 2',
+      'Name Input',
+      'Email Input',
+    ];
+    
+    if (currentStep < stepNames.length) {
+      trackPageView(stepNames[currentStep], {
+        step: currentStep,
+        total_steps: 4,
+      });
+    }
+  }, [currentStep]);
+
   const handleQuestionSelect = (questionKey: string, value: string) => {
     const newAnswers = { ...answers, [questionKey]: value };
     setAnswers(newAnswers);
+    
+    // Track question answer
+    trackEvent('Question Answered', {
+      question_key: questionKey,
+      question_text: questionKey === 'q1' ? contentSchema.q1.title : contentSchema.q2.title,
+      answer: value,
+      step: currentStep,
+    });
     
     // Auto-advance after a brief delay for visual feedback
     setTimeout(() => {
@@ -78,6 +105,15 @@ const Index = () => {
     const newAnswers = { ...answers, [questionKey]: values };
     setAnswers(newAnswers);
     
+    // Track multi-select question answer
+    trackEvent('Question Answered', {
+      question_key: questionKey,
+      question_text: contentSchema.q2.title,
+      answers: values,
+      answer_count: values.length,
+      step: currentStep,
+    });
+    
     // Auto-advance after a brief delay for visual feedback
     setTimeout(() => {
       setCurrentStep(prev => prev + 1);
@@ -85,12 +121,24 @@ const Index = () => {
   };
 
   const handleBack = () => {
+    trackButtonClick('Back', {
+      from_step: currentStep,
+      to_step: Math.max(0, currentStep - 1),
+    });
     setCurrentStep(prev => Math.max(0, prev - 1));
   };
 
   const handleNameSubmit = (name: string) => {
     const newAnswers = { ...answers, name };
     setAnswers(newAnswers);
+    
+    // Track name submission
+    trackEvent('Form Submitted', {
+      form_name: 'Name Input',
+      step: 3,
+      has_name: true,
+    });
+    
     setCurrentStep(4);
   };
 
@@ -101,6 +149,14 @@ const Index = () => {
       timestamp: Date.now()
     };
     setAnswers(finalAnswers);
+    
+    // Track email submission attempt
+    trackEvent('Form Submission Started', {
+      form_name: 'Email Input',
+      step: 4,
+      has_email: true,
+      has_recaptcha: !!recaptchaToken,
+    });
     
     // Save submission locally
     localStorage.setItem(SUBMISSION_KEY, JSON.stringify(finalAnswers));
@@ -115,6 +171,29 @@ const Index = () => {
       if (navlink) {
         setIsSubmitting(false);
         setIsSubmitted(true);
+        
+        // Identify user in Mixpanel
+        identifyUser(email, {
+          name: finalAnswers.name,
+          how_soon: finalAnswers.q1 ? mapHowSoon(finalAnswers.q1) : null,
+          preferred_topics: finalAnswers.q2 ? mapSubjectInterests(finalAnswers.q2) : null,
+          source: 'MBS_Quiz_Page',
+        });
+        
+        // Track successful submission
+        trackEvent('Onboarding Completed', {
+          email: email,
+          name: finalAnswers.name,
+          how_soon: finalAnswers.q1 ? mapHowSoon(finalAnswers.q1) : null,
+          preferred_topics: finalAnswers.q2 ? mapSubjectInterests(finalAnswers.q2) : null,
+          has_redirect_url: true,
+        });
+        
+        // Track thank you page view
+        trackPageView('Thank You', {
+          step: 5,
+        });
+        
         // window.location.href = navlink;
         contentSchema.redirectUrl = navlink;
         setRedirectUrl(navlink);
@@ -124,6 +203,15 @@ const Index = () => {
       if (!response.success) {
         setIsSubmitting(false);
         let errorMessage = 'Registration failed. Please try again.';
+        
+        // Track submission failure
+        trackEvent('Form Submission Failed', {
+          form_name: 'Email Input',
+          step: 4,
+          error_type: 'api_error',
+          error_message: errorMessage,
+        });
+        
         toast.error(errorMessage);
       }
       setIsSubmitted(true);
@@ -133,11 +221,24 @@ const Index = () => {
       
       // Show error message
       let errorMessage = 'Registration failed. Please try again.';
+      let errorType = 'unknown_error';
+      
       if (error.errorType === 'duplicate_email') {
         errorMessage = 'Email already registered. Please use a different email address.';
+        errorType = 'duplicate_email';
       } else if (error.message) {
         errorMessage = error.message;
+        errorType = error.errorType || 'validation_error';
       }
+      
+      // Track submission failure
+      trackEvent('Form Submission Failed', {
+        form_name: 'Email Input',
+        step: 4,
+        error_type: errorType,
+        error_message: errorMessage,
+      });
+      
       toast.error(errorMessage);
     }
   };
@@ -214,7 +315,13 @@ const Index = () => {
 
       <main className="pb-8">
         {currentStep === 0 && (
-          <LandingScreen onContinue={() => setCurrentStep(1)} />
+          <LandingScreen onContinue={() => {
+            trackButtonClick('Try For Free', {
+              location: 'Landing Screen',
+              step: 0,
+            });
+            setCurrentStep(1);
+          }} />
         )}
 
         {currentStep === 1 && (

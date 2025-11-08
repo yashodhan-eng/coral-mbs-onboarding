@@ -4,6 +4,7 @@ import heroVideo from "@/assets/mbs-video.mp4";
 import { Lightbulb, Palette, MessageSquare, TrendingUp, Calendar, ChevronDown, Play, Star, Award, GraduationCap, Users } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { trackEvent, trackButtonClick, trackVideoEvent, trackModalEvent } from "@/lib/mixpanel";
 
 interface LandingScreenProps {
   onContinue: () => void;
@@ -58,6 +59,13 @@ export const LandingScreen = ({ onContinue }: LandingScreenProps) => {
   const [currentFeature, setCurrentFeature] = useState(0);
   const [isVideoOpen, setIsVideoOpen] = useState(false);
   const [isScheduleExpanded, setIsScheduleExpanded] = useState(false);
+
+  // Track landing page view on mount
+  useEffect(() => {
+    trackEvent('Landing Page Viewed', {
+      page: 'Landing',
+    });
+  }, []);
 
   // Auto-rotate testimonials every 3 seconds with animation key
   useEffect(() => {
@@ -195,7 +203,13 @@ export const LandingScreen = ({ onContinue }: LandingScreenProps) => {
             {/* CTA Button */}
             <div className="flex justify-center mb-10">
               <button
-                onClick={onContinue}
+                onClick={() => {
+                  trackButtonClick('Try For Free', {
+                    location: 'Landing Screen - Top',
+                    step: 0,
+                  });
+                  onContinue();
+                }}
                 className="h-[48px] md:h-[52px] px-9 md:px-12 font-poppins font-semibold text-[14px] md:text-[15px] 
                          text-white rounded-full
                          shadow-[0_3px_10px_rgba(240,90,38,0.25)] hover:shadow-[0_6px_20px_rgba(240,90,38,0.35)]
@@ -263,7 +277,14 @@ export const LandingScreen = ({ onContinue }: LandingScreenProps) => {
             <div className="mb-10">
               <div className="max-w-[700px] mx-auto">
                 <button
-                  onClick={() => setIsScheduleExpanded(!isScheduleExpanded)}
+                  onClick={() => {
+                    const newState = !isScheduleExpanded;
+                    setIsScheduleExpanded(newState);
+                    trackEvent('Schedule Toggled', {
+                      action: newState ? 'expanded' : 'collapsed',
+                      location: 'Landing Screen',
+                    });
+                  }}
                   className="w-full bg-white rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.05)] p-4 md:p-5 flex items-center gap-4 hover:shadow-[0_4px_12px_rgba(0,0,0,0.08)] transition-shadow"
                 >
                   <div className="w-10 h-10 rounded-full bg-[#FFE5DC] flex items-center justify-center flex-shrink-0">
@@ -341,7 +362,30 @@ export const LandingScreen = ({ onContinue }: LandingScreenProps) => {
 
               {/* Video Section */}
               <div className="max-w-[90%] md:max-w-[85%] mx-auto mb-8">
-                <Dialog open={isVideoOpen} onOpenChange={setIsVideoOpen}>
+                <Dialog 
+                  open={isVideoOpen} 
+                  onOpenChange={(open) => {
+                    setIsVideoOpen(open);
+                    if (open) {
+                      trackModalEvent('opened', 'Video Preview', {
+                        video_name: 'Mini Business Series Preview',
+                        location: 'Landing Screen',
+                      });
+                      trackVideoEvent('play', 'Mini Business Series Preview', {
+                        location: 'Landing Screen',
+                      });
+                      trackButtonClick('Video Play', {
+                        location: 'Landing Screen',
+                        video_name: 'Mini Business Series Preview',
+                      });
+                    } else {
+                      trackModalEvent('closed', 'Video Preview', {
+                        video_name: 'Mini Business Series Preview',
+                        location: 'Landing Screen',
+                      });
+                    }
+                  }}
+                >
                   <DialogTrigger asChild>
                     <div className="relative cursor-pointer group">
                       <img 
@@ -363,6 +407,16 @@ export const LandingScreen = ({ onContinue }: LandingScreenProps) => {
                       controls 
                       autoPlay
                       className="w-full h-auto"
+                      onEnded={() => {
+                        trackVideoEvent('ended', 'Mini Business Series Preview', {
+                          location: 'Landing Screen',
+                        });
+                      }}
+                      onPause={() => {
+                        trackVideoEvent('pause', 'Mini Business Series Preview', {
+                          location: 'Landing Screen',
+                        });
+                      }}
                     />
                   </DialogContent>
                 </Dialog>
@@ -372,7 +426,13 @@ export const LandingScreen = ({ onContinue }: LandingScreenProps) => {
             {/* Final CTA Button */}
             <div className="flex justify-center">
               <button
-                onClick={onContinue}
+                onClick={() => {
+                  trackButtonClick('Try For Free', {
+                    location: 'Landing Screen - Bottom',
+                    step: 0,
+                  });
+                  onContinue();
+                }}
                 className="h-[50px] md:h-[52px] px-10 md:px-12 font-poppins font-semibold text-[15px] 
                          text-white rounded-full
                          shadow-[0_3px_10px_rgba(240,90,38,0.25)] hover:shadow-[0_6px_20px_rgba(240,90,38,0.35)]

@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ChevronLeft } from "lucide-react";
+import { trackFormEvent, trackButtonClick } from "@/lib/mixpanel";
 
 declare global {
   interface Window {
@@ -121,9 +122,25 @@ export const InputScreen = ({
       const validationError = validator(trimmedValue);
       if (validationError) {
         setError(validationError);
+        // Track validation error
+        trackFormEvent('field_changed', type === 'email' ? 'Email Input' : 'Name Input', {
+          field_type: type,
+          step: step,
+          has_error: true,
+          error_message: validationError,
+        });
         return;
       }
     }
+    
+    // Track form submission attempt
+    trackButtonClick(type === 'email' ? 'Submit Email' : 'Submit Name', {
+      button_name: buttonText,
+      location: type === 'email' ? 'Email Input Screen' : 'Name Input Screen',
+      field_type: type,
+      step: step,
+      has_value: true,
+    });
 
     // For email type, check if reCAPTCHA is completed and get fresh token
     if (type === "email") {
@@ -213,6 +230,12 @@ export const InputScreen = ({
                 type={type}
                 value={value}
                 onChange={handleChange}
+                onFocus={() => {
+                  trackFormEvent('field_focused', type === 'email' ? 'Email Input' : 'Name Input', {
+                    field_type: type,
+                    step: step,
+                  });
+                }}
                 onBlur={() => setTouched(true)}
                 className="h-12 md:h-14 text-[15px] md:text-lg rounded-full px-5 md:px-6 bg-white border border-gray-300
                          focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
