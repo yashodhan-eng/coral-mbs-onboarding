@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
+import { trackEvent, trackButtonClick } from "@/lib/mixpanel";
 
 interface MultiSelectScreenProps {
   step: number;
@@ -24,15 +25,36 @@ export const MultiSelectScreen = ({
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
   const toggleOption = (option: string) => {
-    setSelectedOptions(prev => 
-      prev.includes(option) 
+    setSelectedOptions(prev => {
+      const wasSelected = prev.includes(option);
+      const newSelection = wasSelected
         ? prev.filter(o => o !== option)
-        : [...prev, option]
-    );
+        : [...prev, option];
+      
+      // Track option toggle
+      trackEvent('Option Toggled', {
+        question_key: `q${step}`,
+        question_text: title,
+        option: option,
+        action: wasSelected ? 'deselected' : 'selected',
+        total_selected: newSelection.length,
+        selected_options: newSelection,
+        step: step,
+      });
+      
+      return newSelection;
+    });
   };
 
   const handleSubmit = () => {
     if (selectedOptions.length > 0) {
+      trackButtonClick('Submit', {
+        button_name: 'Submit',
+        location: 'Multi-Select Screen',
+        question_key: `q${step}`,
+        selected_count: selectedOptions.length,
+        step: step,
+      });
       onSubmit(selectedOptions);
     }
   };
